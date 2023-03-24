@@ -1,13 +1,1 @@
-#Объединение двух таблиц
-with sq.connect('music.db') as con:
-cur = con.cursor()
-cur. execute("SELECT tracks.title, second, price, albums.title FROM tracks INNER JOIN "
-"Albums ON tracks.album_id = albums.id")
-result = cur.fetchall() print(result)
-#Объединение трех таблиц
-with sq.connect('music.db') as con:
-cur = con.cursor()
-cur. execute("SELECT tracks.title, albums.title, artist.name FROM tracks INNER JOIN " "Albums ON tracks.album_id = albums.id LEFT JOIN "
-"artist ON albums.artist_id = artist.id")
-result = cur.fetchall()
-print(result)
+ 

@@ -1,19 +1,13 @@
-Finfo_tracks = [
-(1,'Девушка по городу', 193, 26.20, 2), (2,'Песня идущего домой', 170, 22.10, 2), (3,'Полковнику никто не пишет', 292, 32.15, 3),
-(4,'Мой друг', 291, 27.15, 3),
-(5,'Моё сердце', 249, 21.12, 1),
-(6,'Линия жизни', 180, 41.12, 1),
-(7,'Остаемся зимовать', 218, 17.62, 1),
-]
-
-info_artist = [
-(1, 'Вячеслав Бутусов'),
-(2, "Сплин'),
-(3, 'Би - 2'),
-]
-
-info_albums = [
-(1, '25-й кадр', 2),
-(2, 'Биографика', 1),
-(3, 'Би - 2', 3),
-]
+#Объединение двух таблиц
+with sq.connect('music.db') as con:
+cur = con.cursor()
+cur. execute("SELECT tracks.title, second, price, albums.title FROM tracks INNER JOIN "
+"Albums ON tracks.album_id = albums.id")
+result = cur.fetchall() print(result)
+#Объединение трех таблиц
+with sq.connect('music.db') as con:
+cur = con.cursor()
+cur. execute("SELECT tracks.title, albums.title, artist.name FROM tracks INNER JOIN " "Albums ON tracks.album_id = albums.id LEFT JOIN "
+"artist ON albums.artist_id = artist.id")
+result = cur.fetchall()
+print(result)

@@ -1,26 +1,31 @@
-from random import randint, choice, random
+from random import randint, choice
+from datetime import date
+
+d2 = date.today()
+f = '-%m-%d'
 
 info_form = [
     (
         i,
-        'name ' + str(i),
-        'surname ' + str(i),
-        i + 10,
+        'Имя ' + str(i),
+        'Фамилия ' + str(i),
+        (d1 := date(*map(lambda x: randint(*x), ((1950, 1999), (1, 12), (1, 28))))).strftime('19%y-%m-%d'),
         randint(1, 2),
-        randint(1, 31),
+        f"{(d2 := date(*map(lambda x: randint(*x), ((d1.year + 18, 2023), (1, 12), (1, 28))))).year}" + d2.strftime(f),
         'post ' + str(randint(1, 10)),
-        choice(('IT', 'not IT')),
-        random() * 10
-    ) for i in range(1, 51)]
+        choice(('IT', 'frontend', 'backend')),
+        randint(50_000, 120_000)
+    ) for i in range(1, 51)
+]
 
 info_list = [
     (
         i,
-        (start_date := randint(1, 31)),
-        randint(start_date + 1, 32),
-        'cause ' + str(i),
-        'diagnosis ' + str(i),
-        randint(0, 1),
-        randint(1, 51)
+        (st := date(*map(lambda x: randint(*x), ((d2.year, 2023), (1, 12), (1, 28))))).strftime('20%y-%m-%d'),
+        str((en := date(*map(lambda x: randint(*x), ((st.year, st.year + 1), (1, 12), (1, 28))))).year) + en.strftime(f),
+        'причина ' + str(i),
+        'диагноз ' + str(i),
+        choice(('NO', 'YES', 'NO')),
+        randint(1, 50)
     ) for i in range(1, 100)
 ]

@@ -73,3 +73,52 @@ with sq.connect('tourist.db') as con:
     (8, 2, 5, '2023-05-01', '2023-05-08'),
     (9, 8, 4, '2023-07-28', '2023-08-04'),
     (10, 10, 1, '2023-08-10', '2023-08-17')''')
+
+with sq.connect('tourist.db') as con:
+    cur = con.cursor()
+    cur.execute("")
+#   SELECT * FROM tourists;
+#   SELECT * FROM tours ORDER BY price DESC;
+#   SELECT * FROM bookings WHERE city = 'заданный город';
+#   SELECT tourists.* FROM tourists INNER JOIN bookings ON tourists.tourist_id = bookings.tourist_id WHERE booking_date BETWEEN 'начало периода' AND 'конец периода';
+#   SELECT tours.*, countries.country_name, cities.city_name FROM tours INNER JOIN cities ON tours.city_id = cities.city_id INNER JOIN countries ON cities.country_id = countries.country_id;
+#   SELECT * FROM tourists WHERE gender = 'женский' AND birth_date > '1990-01-01';
+#   SELECT * FROM tours WHERE price > 5000;
+#   SELECT tourists.* FROM tourists INNER JOIN bookings ON tourists.tourist_id = bookings.tourist_id WHERE bookings.tour_id = 'конкретный тур';
+#   SELECT tourists.* FROM tourists INNER JOIN bookings ON tourists.tourist_id = bookings.tourist_id INNER JOIN tours ON bookings.tour_id = tours.tour_id WHERE tours.date = 'указанная дата';
+#   SELECT * FROM tourists WHERE phone_number LIKE '+7%';
+
+with sq.connect('tourist.db') as con:
+    cur = con.cursor()
+    cur.execute("")
+#   UPDATE Tour SET start_date = '2023-05-01' WHERE id = 1;
+#   UPDATE Tour SET price = 1500 WHERE id = 7;
+#   UPDATE Tourist SET phone_number = '+1 (555) 123-4567' WHERE id = 5;
+#   UPDATE Booking SET booking_date = '2023-04-05' WHERE id = 3;
+#   UPDATE Booking SET number_of_tourists = 3 WHERE id = 8;
+#   UPDATE Tour SET end_date = '2023-08-31' WHERE id = 2;
+#   UPDATE Tourist SET email = 'new_email@example.com' WHERE id = 1;
+#   UPDATE Tour SET start_date = '2023-06-15' WHERE id = 4;
+#   UPDATE Tour SET start_date = '2023-05-01' WHERE country = 'Испания';
+#   UPDATE Tour SET price = 1500 WHERE name = 'Греция-отдых на море';
+#   UPDATE Tour SET start_date = '2023-06-01' WHERE name = 'Испания-путешествие по городам';
+#   UPDATE Booking SET number_of_tourists = 3 WHERE id = 1002;
+#   UPDATE Tourist SET phone_number = '+1 (123) 456-7890' WHERE id = 2001;
+#   UPDATE Tour SET start_date = '2024-07-01' WHERE price < 2000;
+#   UPDATE Tourist SET email = 'new_email@example.com' WHERE country = 'Россия';
+#   UPDATE Booking SET start_date = '2023-08-15' WHERE number_of_tourists > 2;
+#   UPDATE Booking SET tour_name = 'Египет-отдых на курорте' WHERE tour_id = 1003.
+
+with sq.connect('tourist.db') as con:
+    cur = con.cursor()
+    cur.execute("")
+#   DELETE FROM bookings WHERE tourist_id=1;
+#   DELETE FROM bookings WHERE tour_id=2;
+#   DELETE FROM bookings WHERE booking_date='YYYY-MM-DD';
+#   DELETE FROM tourists WHERE id IN (SELECT tourist_id FROM bookings WHERE tour_id=3);
+#   DELETE FROM bookings WHERE tourist_phone='phone_number';
+#   DELETE FROM bookings WHERE tourist_email='email_address';
+#   DELETE FROM bookings WHERE tour_start_date>'YYYY-MM-DD';
+#   DELETE FROM tourists WHERE id IN (SELECT tourist_id FROM bookings WHERE tour_country='country_name');
+#   DELETE FROM bookings WHERE tour_end_date<'YYYY-MM-DD';
+#   DELETE FROM bookings WHERE tour_price='price_value';

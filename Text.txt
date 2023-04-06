@@ -1,53 +1,134 @@
-ALTER TABLE salespeople RENAME TO salespeople1;
+ALTER TABLE Продавцы
+ADD Naprav VARCHAR(50) NOT NULL;
 
-ALTER TABLE salespeople1 RENAME COLUMN sname TO sname1;
+UPDATE Продавцы
+SET Naprav = 'продукты'
+WHERE Sid = 1;
 
-ALTER TABLE salespeople1 RENAME COLUMN city TO city1;
+UPDATE Продавцы
+SET Naprav = 'молочная продукция'
+WHERE Sid = 2;
 
-ALTER TABLE salespeople1 ADD Naprav VARCHAR(50);
+UPDATE Продавцы
+SET Naprav = 'алкогольная продукция'
+WHERE Sid = 3;
 
-UPDATE salespeople1 SET Naprav='Продукты' WHERE snum=1;
+UPDATE Продавцы
+SET Naprav = 'табачные изделия'
+WHERE Sid = 4;
 
-UPDATE salespeople1 SET Naprav='Молочная продукция' WHERE snum=2;
+UPDATE Продавцы
+SET Naprav = 'колбасная продукция'
+WHERE Sid = 5;
 
-UPDATE salespeople1 SET Naprav='Алкогольная продукция' WHERE snum=3;
+UPDATE Продавцы
+SET Naprav = 'мясная продукция'
+WHERE Sid = 6;
 
-UPDATE salespeople1 SET Naprav='Табачные изделия' WHERE snum=4;
+UPDATE Продавцы
+SET Naprav = 'соки-воды'
+WHERE Sid = 7;
 
-UPDATE salespeople1 SET Naprav='Колбасная продукция' WHERE snum=5;
+ALTER TABLE Заказы
+ADD Dostavka INT NOT NULL;
 
-UPDATE salespeople1 SET Naprav='Мясная продукция' WHERE snum=6;
+UPDATE Заказы
+SET Dostavka = 250
+WHERE Orderid = 1001;
 
-UPDATE salespeople1 SET Naprav='Соки-воды' WHERE snum=7;
+UPDATE Заказы
+SET Dostavka = 150
+WHERE Orderid = 1002;
 
-ALTER TABLE orders ADD Dostavka DECIMAL(8, 2);
+UPDATE Заказы
+SET Dostavka = 200
+WHERE Orderid = 1003;
 
-UPDATE orders SET Dostavka=10.50 WHERE onum=1001;
+UPDATE Заказы
+SET Dostavka = 100
+WHERE Orderid = 1004;
 
-UPDATE orders SET Dostavka=8.00 WHERE onum=1002;
+UPDATE Заказы
+SET Dostavka = 300
+WHERE Orderid = 1005;
 
-UPDATE orders SET Dostavka=12.00 WHERE onum=1003;
+UPDATE Заказы
+SET Dostavka = 180
+WHERE Orderid = 1006;
 
-ALTER TABLE orders ADD Oplata VARCHAR(50);
+UPDATE Заказы
+SET Dostavka = 190
+WHERE Orderid = 1007;
 
-UPDATE orders SET Oplata='Наличными' WHERE onum=1001;
+UPDATE Заказы
+SET Dostavka = 220
+WHERE Orderid = 1008;
 
-UPDATE orders SET Oplata='Безналичными' WHERE onum=1002;
+ALTER TABLE Заказы
+ADD Oplata VARCHAR(20) NOT NULL;
 
-UPDATE orders SET Oplata='Наличными' WHERE onum=1003;
+UPDATE Заказы
+SET Oplata = 'наличный'
+WHERE Orderid = 1001;
 
-ALTER TABLE customers ADD pol VARCHAR(10) AFTER cname;
+UPDATE Заказы
+SET Oplata = 'безналичный'
+WHERE Orderid = 1002;
 
-UPDATE customers SET pol='ж' WHERE cnum=1001;
+UPDATE Заказы
+SET Oplata = 'наличный'
+WHERE Orderid = 1003;
 
-UPDATE customers SET pol='ж' WHERE cnum=1002;
+UPDATE Заказы
+SET Oplata = 'безналичный'
+WHERE Orderid = 1004;
 
-UPDATE customers SET pol='м' WHERE cnum=1003;
+UPDATE Заказы
+SET Oplata = 'безналичный'
+WHERE Orderid = 1005;
 
-UPDATE customers SET pol='м' WHERE cnum=1004;
+UPDATE Заказы
+SET Oplata = 'наличный'
+WHERE Orderid = 1006;
 
-UPDATE customers SET city='Paris' WHERE city='London';
+UPDATE Заказы
+SET Oplata = 'безналичный'
+WHERE Orderid = 1007;
 
-UPDATE salespeople1 SET comm=0.16 WHERE comm>0.12;
+UPDATE Заказы
+SET Oplata = 'безналичный'
+WHERE Orderid = 1008;
 
-DELETE FROM orders WHERE onum=3011;
+ALTER TABLE Заказчики
+ADD pol CHAR(1) NOT NULL;
+
+UPDATE Заказчики
+SET pol = 'ж'
+WHERE Cname = 'Maria';
+
+UPDATE Заказчики
+SET pol = 'м'
+WHERE Cname = 'John';
+
+UPDATE Заказчики
+SET pol = 'ж'
+WHERE Cname = 'Anna';
+
+UPDATE Заказчики
+SET pol = 'м'
+WHERE Cname = 'Tom';
+
+UPDATE Заказчики
+SET pol = 'ж'
+WHERE Cname = 'Lisa';
+
+UPDATE Заказчики
+SET City = 'Paris'
+WHERE City = 'London';
+
+UPDATE Продавцы
+SET Comm = 0.16
+WHERE Comm > 0.12;
+
+DELETE FROM Заказы
+WHERE Orderid = 3011;

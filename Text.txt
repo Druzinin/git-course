@@ -1,1 +1,53 @@
+ALTER TABLE salespeople RENAME TO salespeople1;
 
+ALTER TABLE salespeople1 RENAME COLUMN sname TO sname1;
+
+ALTER TABLE salespeople1 RENAME COLUMN city TO city1;
+
+ALTER TABLE salespeople1 ADD Naprav VARCHAR(50);
+
+UPDATE salespeople1 SET Naprav='Продукты' WHERE snum=1;
+
+UPDATE salespeople1 SET Naprav='Молочная продукция' WHERE snum=2;
+
+UPDATE salespeople1 SET Naprav='Алкогольная продукция' WHERE snum=3;
+
+UPDATE salespeople1 SET Naprav='Табачные изделия' WHERE snum=4;
+
+UPDATE salespeople1 SET Naprav='Колбасная продукция' WHERE snum=5;
+
+UPDATE salespeople1 SET Naprav='Мясная продукция' WHERE snum=6;
+
+UPDATE salespeople1 SET Naprav='Соки-воды' WHERE snum=7;
+
+ALTER TABLE orders ADD Dostavka DECIMAL(8, 2);
+
+UPDATE orders SET Dostavka=10.50 WHERE onum=1001;
+
+UPDATE orders SET Dostavka=8.00 WHERE onum=1002;
+
+UPDATE orders SET Dostavka=12.00 WHERE onum=1003;
+
+ALTER TABLE orders ADD Oplata VARCHAR(50);
+
+UPDATE orders SET Oplata='Наличными' WHERE onum=1001;
+
+UPDATE orders SET Oplata='Безналичными' WHERE onum=1002;
+
+UPDATE orders SET Oplata='Наличными' WHERE onum=1003;
+
+ALTER TABLE customers ADD pol VARCHAR(10) AFTER cname;
+
+UPDATE customers SET pol='ж' WHERE cnum=1001;
+
+UPDATE customers SET pol='ж' WHERE cnum=1002;
+
+UPDATE customers SET pol='м' WHERE cnum=1003;
+
+UPDATE customers SET pol='м' WHERE cnum=1004;
+
+UPDATE customers SET city='Paris' WHERE city='London';
+
+UPDATE salespeople1 SET comm=0.16 WHERE comm>0.12;
+
+DELETE FROM orders WHERE onum=3011;

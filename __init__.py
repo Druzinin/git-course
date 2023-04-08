@@ -36,20 +36,20 @@ with sq.connect('tourist.db') as con:
 
 
 tourists_data = [
-    ('Ivan', 'Ivanov', 'M', '1990-05-23', '+79123456789', 'ivan.ivanov@example.com'),
-    ('Maria', 'Petrova', 'F', '1987-12-01', '+79234567890', 'maria.petrova@example.com'),
-    ('Sergei', 'Sidorov', 'M', '1985-06-12', '+79345678901', 'sergei.sidorov@example.com'),
-    ('Elena', 'Kuznetsova', 'F', '1993-02-25', '+79456789012', 'elena.kuznetsova@example.com'),
-    ('Maxim', 'Smirnov', 'M', '1988-09-18', '+79567890123', 'maxim.smirnov@example.com'),
-    ('Olga', 'Novikova', 'F', '1991-11-06', '+79678901234', 'olga.novikova@example.com'),
-    ('Dmitry', 'Morozov', 'M', '1983-08-29', '+79789012345', 'dmitry.morozov@example.com'),
-    ('Natalia', 'Belyaeva', 'F', '1989-04-15', '+79890123456', 'natalia.belyaeva@example.com'),
-    ('Alexei', 'Fedorov', 'M', '1986-03-07', '+79901234567', 'alexei.fedorov@example.com'),
-    ('Anastasia', 'Kuzmina', 'F', '1994-07-21', '+79012345678', 'anastasia.kuzmina@example.com')
+    ('Ivan', 'Ivanov', 'M', '1990-05-23', '+7 (912) 345-6789', 'ivan.ivanov@example.com'),
+    ('Maria', 'Petrova', 'F', '1987-12-01', '+7 (923) 456-7890', 'maria.petrova@example.com'),
+    ('Sergei', 'Sidorov', 'M', '1985-06-12', '+7 (934) 567-8901', 'sergei.sidorov@example.com'),
+    ('Elena', 'Kuznetsova', 'F', '1993-02-25', '+7 (945) 678-9012', 'elena.kuznetsova@example.com'),
+    ('Maxim', 'Smirnov', 'M', '1988-09-18', '+7 (956) 789-0123', 'maxim.smirnov@example.com'),
+    ('Olga', 'Novikova', 'F', '1991-11-06', '+7 (967) 890-1234', 'olga.novikova@example.com'),
+    ('Dmitry', 'Morozov', 'M', '1983-08-29', '+7 (978) 901-2345', 'dmitry.morozov@example.com'),
+    ('Natalia', 'Belyaeva', 'F', '1989-04-15', '+7 (989) 012-3456', 'natalia.belyaeva@example.com'),
+    ('Alexei', 'Fedorov', 'M', '1986-03-07', '+7 (990) 123-4567', 'alexei.fedorov@example.com'),
+    ('Anastasia', 'Kuzmina', 'F', '1994-07-21', '+7 (901) 234-5678', 'anastasia.kuzmina@example.com')
 ]
 
 tours_data = [
-    ('Tour 1', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
+    ('Tour A', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
     ('Tour 2', 'Spain', 'Barcelona', '2023-06-15', '2023-06-25', 1500.0),
     ('Tour 3', 'Italy', 'Rome', '2023-07-10', '2023-07-20', 2000.0),
     ('Tour 4', 'France', 'Paris', '2023-08-01', '2023-08-10', 2500.0),
@@ -86,6 +86,7 @@ with sq.connect('tourist.db') as con:
                     bookings_data)
 
 
+# SELECTS
 with sq.connect('tourist.db') as con:
     cur = con.cursor()
 
@@ -147,3 +148,66 @@ with sq.connect('tourist.db') as con:
     cur.execute("SELECT name, surname, number FROM tourists WHERE number LIKE '+7%'")
     print('Список туристов, у которых номер телефона начинается на "+7":')
     print(cur.fetchall())
+
+
+# UPDATES
+# with sq.connect('tourist.db') as con:
+#     cur = con.cursor()
+# 
+#     # 1. Изменить дату начала тура с id=1 на '2023-05-01'
+#     cur.execute("UPDATE tours SET start_date='2023-05-01' WHERE id_tour=1;")
+# 
+#     # 2. Обновить цену тура с id=7 на 1500
+#     cur.execute("UPDATE tours SET price=1500 WHERE id_tour=7;")
+# 
+#     # 3. Изменить номер телефона туриста с id=5 на '+1 (555) 123-4567'
+#     cur.execute("UPDATE tourists SET number='+1 (555) 123-4567' WHERE id_tourist=5;")
+# 
+#     # 4. Изменить дату бронирования с id=3 на '2023-04-05'
+#     cur.execute("UPDATE bookings SET booking_date='2023-04-05' WHERE id_booking=3;")
+# 
+#     # 5. Обновить количество туристов в бронировании с id=8 на 3
+#     cur.execute("UPDATE bookings SET count=3 WHERE id_booking=8;")
+# 
+#     # 6. Изменить дату окончания тура с id=2 на '2023-08-31'
+#     cur.execute("UPDATE tours SET end_date='2023-08-31' WHERE id_tour=2;")
+# 
+#     # 7. Обновить электронную почту туриста с id=1 на 'new_email@example.com'
+#     cur.execute("UPDATE tourists SET email='new_email@example.com' WHERE id_tourist=1;")
+# 
+#     # 8. Изменить дату начала тура с id=4 на '2023-06-15'
+#     cur.execute("UPDATE tours SET start_date='2023-06-15' WHERE id_tour=4;")
+# 
+#     # 9. Обновить дату начала тура на 2023-05-01 для всех туров, где страна = 'Испания':
+#     cur.execute("UPDATE tours SET start_date = '2023-05-01' WHERE country = 'Испания';")
+# 
+#     # 10. Обновление цены на тур "Греция-отдых на море" на 1500 у.е.
+#     cur.execute("UPDATE tours SET price = 1500 WHERE name = 'Греция-отдых на море';")
+# 
+#     # 11. Обновление даты начала тура "Испания-путешествие по городам" на 2023-06-01.
+#     cur.execute("UPDATE tours SET start_date = '2023-06-01' WHERE name = 'Испания-путешествие по городам';")
+# 
+#     # 12. Обновление количества туристов в бронировании с id 1002 на 3 человека.
+#     cur.execute("UPDATE bookings SET count = 3 WHERE id_booking = 1002;")
+# 
+#     # 13. Обновление номера телефона у туриста с id 2001 на +1 (123) 456-7890.
+#     cur.execute("UPDATE tourists SET number = '+1 (123) 456-7890' WHERE id_tourist = 2001;")
+# 
+#     # 14. Обновление даты начала тура на 2024-07-01 для всех туров, цена которых меньше 2000 у.е.
+#     cur.execute("UPDATE tours SET start_date = '2024-07-01' WHERE price < 2000;")
+# 
+#     # 15. Обновление электронной почты у всех туристов из России на new_email@example.com.
+#     cur.execute("""UPDATE tourists SET email = 'new_email@example.com' WHERE id_tourist IN
+#     (SELECT bookings.id_tourist FROM bookings JOIN
+#     tours ON bookings.id_tour = tours.id_tour WHERE country = 'Россия');""")
+# 
+#     # 16. Обновление даты начала тура на 2023-08-15 для всех бронирований с количеством туристов больше 2.
+#     cur.execute("UPDATE bookings SET id_tour = 3 WHERE count > 2;")
+# 
+#     # 17. Обновление названия тура на "Египет-отдых на курорте" для всех бронирований с id_тура равным 1003.
+#     cur.execute("UPDATE tours SET name = 'Египет-отдых на курорте' WHERE id_tour = 1003;")
+
+
+# DELETES
+with sq.connect('tourist.db') as con:
+    cur = con.cursor()

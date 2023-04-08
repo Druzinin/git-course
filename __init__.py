@@ -49,16 +49,16 @@ tourists_data = [
 ]
 
 tours_data = [
-    ('Tour A', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
+    ('Tour 1', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
     ('Tour 2', 'Spain', 'Barcelona', '2023-06-15', '2023-06-25', 1500.0),
-    ('Tour 3', 'Italy', 'Rome', '2023-07-10', '2023-07-20', 2000.0),
+    ('Tour 3', 'Italy', 'Rome', '2023-07-10', '2023-07-20', 7000.0),
     ('Tour 4', 'France', 'Paris', '2023-08-01', '2023-08-10', 2500.0),
     ('Tour 5', 'Australia', 'Sydney', '2023-09-05', '2023-09-15', 3000.0),
     ('Tour 6', 'Japan', 'Tokyo', '2023-10-01', '2023-10-07', 1200.0),
-    ('Tour 7', 'Canada', 'Toronto', '2023-11-15', '2023-11-25', 1800.0),
+    ('Tour 7', 'Canada', 'Toronto', '2023-11-15', '2023-11-25', 10800.0),
     ('Tour 8', 'Thailand', 'Bangkok', '2023-12-10', '2023-12-20', 2200.0),
     ('Tour 9', 'Brazil', 'Rio de Janeiro', '2024-01-01', '2024-01-10', 2700.0),
-    ('Tour 10', 'South Africa', 'Cape Town', '2024-02-05', '2024-02-15', 3200.0)
+    ('Испания-путешествие по городам', 'South Africa', 'Cape Town', '2024-02-05', '2024-02-15', 3200.0)
 ]
 
 bookings_data = [
@@ -121,7 +121,7 @@ with sq.connect('tourist.db') as con:
     print(cur.fetchall())
 
     # 6. Вывести список всех туристов, женщин, у которых дата рождения позже 01.01.1990
-    cur.execute("SELECT * FROM tourists WHERE gender='Female' AND date_burn > '1990-01-01';")
+    cur.execute("SELECT * FROM tourists WHERE gender='F' AND date_burn > '1990-01-01';")
     print("Список всех женщин-туристов, родившихся после 01.01.1990:")
     print(cur.fetchall())
 
@@ -133,8 +133,8 @@ with sq.connect('tourist.db') as con:
     # 8. Вывести список всех туристов, которые сделали бронирование на конкретный тур
     cur.execute("""SELECT tourists.name, tourists.surname, tours.name FROM tourists JOIN
     bookings b ON tourists.id_tourist = b.id_tourist JOIN tours ON tours.id_tour = b.id_tour WHERE tours.name = ?""",
-                ('Tour A',))
-    print('Список туристов, которые забронировали тур "Tour A":')
+                ('Tour 2',))
+    print('Список туристов, которые забронировали тур "Tour 2":')
     print(cur.fetchall())
 
     # 9. Вывести список всех туристов, которые сделали бронирование на тур в указанную дату
@@ -179,7 +179,7 @@ with sq.connect('tourist.db') as con:
 #     cur.execute("UPDATE tours SET start_date='2023-06-15' WHERE id_tour=4;")
 #
 #     # 9. Обновить дату начала тура на 2023-05-01 для всех туров, где страна = 'Испания':
-#     cur.execute("UPDATE tours SET start_date = '2023-05-01' WHERE country = 'Испания';")
+#     cur.execute("UPDATE tours SET start_date = '2023-05-01' WHERE country = 'Spain';")
 #
 #     # 10. Обновление цены на тур "Греция-отдых на море" на 1500 у.е.
 #     cur.execute("UPDATE tours SET price = 1500 WHERE name = 'Греция-отдых на море';")
@@ -188,10 +188,10 @@ with sq.connect('tourist.db') as con:
 #     cur.execute("UPDATE tours SET start_date = '2023-06-01' WHERE name = 'Испания-путешествие по городам';")
 #
 #     # 12. Обновление количества туристов в бронировании с id 1002 на 3 человека.
-#     cur.execute("UPDATE bookings SET count = 3 WHERE id_booking = 1002;")
+#     cur.execute("UPDATE bookings SET count = 3 WHERE id_booking = 2;")
 #
 #     # 13. Обновление номера телефона у туриста с id 2001 на +1 (123) 456-7890.
-#     cur.execute("UPDATE tourists SET number = '+1 (123) 456-7890' WHERE id_tourist = 2001;")
+#     cur.execute("UPDATE tourists SET number = '+1 (123) 456-7890' WHERE id_tourist = 1;")
 #
 #     # 14. Обновление даты начала тура на 2024-07-01 для всех туров, цена которых меньше 2000 у.е.
 #     cur.execute("UPDATE tours SET start_date = '2024-07-01' WHERE price < 2000;")
@@ -205,9 +205,44 @@ with sq.connect('tourist.db') as con:
 #     cur.execute("UPDATE bookings SET id_tour = 3 WHERE count > 2;")
 #
 #     # 17. Обновление названия тура на "Египет-отдых на курорте" для всех бронирований с id_тура равным 1003.
-#     cur.execute("UPDATE tours SET name = 'Египет-отдых на курорте' WHERE id_tour = 1003;")
+#     cur.execute("UPDATE tours SET name = 'Египет-отдых на курорте' WHERE id_tour = 3;")
 
 
 # DELETES
-with sq.connect('tourist.db') as con:
-    cur = con.cursor()
+# with sq.connect('tourist.db') as con:
+#     cur = con.cursor()
+#
+#     # 1. Удалить все бронирования, связанные с туристом с id=1
+#     cur.execute("DELETE FROM bookings WHERE id_tourist=1")
+#
+#     # 2. Удалить все бронирования, связанные с туром с id=2
+#     cur.execute("DELETE FROM bookings WHERE id_tour=2")
+#
+#     # 3. Удалить все бронирования, сделанные в определенную дату
+#     cur.execute("DELETE FROM bookings WHERE booking_date='2023-04-12'")
+#
+#     # 4. Удалить всех туристов, которые сделали бронирование на тур с id=3
+#     cur.execute("DELETE FROM tourists WHERE id_tourist IN (SELECT id_tourist FROM bookings WHERE id_tour=3)")
+#
+#     # 5. Удалить все бронирования, сделанные туристом с определенным номером телефона
+#     cur.execute("DELETE FROM bookings WHERE id_tourist IN (SELECT id_tourist FROM tourists WHERE number=?)",
+#                 ('+7 (923) 456-7890',))
+#
+#     # 6. Удалить все бронирования, сделанные туристом с определенной электронной почтой
+#     cur.execute("""DELETE FROM bookings WHERE id_tourist IN (SELECT id_tourist FROM tourists WHERE email = ?)""",
+#                 ('natalia.belyaeva@example.com',))
+#
+#     # 7. Удалить все бронирования на туры, начинающиеся после определенной даты
+#     cur.execute("""DELETE FROM bookings WHERE id_tour IN (SELECT id_tour FROM tours WHERE start_date > ?)""",
+#                 ('2023-04-15',))
+#
+#     # 8. Удалить всех туристов, которые забронировали тур в определенную страну
+#     cur.execute("""DELETE FROM tourists WHERE id_tourist IN (SELECT id_tourist FROM bookings JOIN
+#     tours ON bookings.id_tour = tours.id_tour WHERE tours.country = ?)""", ('Spain',))
+#
+#     # 9. Удалить все бронирования на туры, заканчивающиеся до определенной даты
+#     cur.execute("""DELETE FROM bookings WHERE id_tour IN (SELECT id_tour FROM tours WHERE end_date < ?)""",
+#                 ('2023-04-10',))
+#
+#     # 10. Удалить все бронирования, сделанные на тур с определенной ценой
+#     cur.execute("""DELETE FROM bookings WHERE id_tour IN (SELECT id_tour FROM tours WHERE price = ?)""", (1500.0,))

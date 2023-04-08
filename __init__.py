@@ -3,9 +3,9 @@ import sqlite3 as sq
 with sq.connect('tourist.db') as con:
     con.execute("PRAGMA foreign_keys = ON;")
     cur = con.cursor()
+    cur.execute("DROP TABLE IF EXISTS bookings;")
     cur.execute("DROP TABLE IF EXISTS tourists;")
     cur.execute("DROP TABLE IF EXISTS tours;")
-    cur.execute("DROP TABLE IF EXISTS bookings;")
 
     cur.execute("""CREATE TABLE IF NOT EXISTS tourists (
     id_tourist INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -153,57 +153,57 @@ with sq.connect('tourist.db') as con:
 # UPDATES
 # with sq.connect('tourist.db') as con:
 #     cur = con.cursor()
-# 
+#
 #     # 1. Изменить дату начала тура с id=1 на '2023-05-01'
 #     cur.execute("UPDATE tours SET start_date='2023-05-01' WHERE id_tour=1;")
-# 
+#
 #     # 2. Обновить цену тура с id=7 на 1500
 #     cur.execute("UPDATE tours SET price=1500 WHERE id_tour=7;")
-# 
+#
 #     # 3. Изменить номер телефона туриста с id=5 на '+1 (555) 123-4567'
 #     cur.execute("UPDATE tourists SET number='+1 (555) 123-4567' WHERE id_tourist=5;")
-# 
+#
 #     # 4. Изменить дату бронирования с id=3 на '2023-04-05'
 #     cur.execute("UPDATE bookings SET booking_date='2023-04-05' WHERE id_booking=3;")
-# 
+#
 #     # 5. Обновить количество туристов в бронировании с id=8 на 3
 #     cur.execute("UPDATE bookings SET count=3 WHERE id_booking=8;")
-# 
+#
 #     # 6. Изменить дату окончания тура с id=2 на '2023-08-31'
 #     cur.execute("UPDATE tours SET end_date='2023-08-31' WHERE id_tour=2;")
-# 
+#
 #     # 7. Обновить электронную почту туриста с id=1 на 'new_email@example.com'
 #     cur.execute("UPDATE tourists SET email='new_email@example.com' WHERE id_tourist=1;")
-# 
+#
 #     # 8. Изменить дату начала тура с id=4 на '2023-06-15'
 #     cur.execute("UPDATE tours SET start_date='2023-06-15' WHERE id_tour=4;")
-# 
+#
 #     # 9. Обновить дату начала тура на 2023-05-01 для всех туров, где страна = 'Испания':
 #     cur.execute("UPDATE tours SET start_date = '2023-05-01' WHERE country = 'Испания';")
-# 
+#
 #     # 10. Обновление цены на тур "Греция-отдых на море" на 1500 у.е.
 #     cur.execute("UPDATE tours SET price = 1500 WHERE name = 'Греция-отдых на море';")
-# 
+#
 #     # 11. Обновление даты начала тура "Испания-путешествие по городам" на 2023-06-01.
 #     cur.execute("UPDATE tours SET start_date = '2023-06-01' WHERE name = 'Испания-путешествие по городам';")
-# 
+#
 #     # 12. Обновление количества туристов в бронировании с id 1002 на 3 человека.
 #     cur.execute("UPDATE bookings SET count = 3 WHERE id_booking = 1002;")
-# 
+#
 #     # 13. Обновление номера телефона у туриста с id 2001 на +1 (123) 456-7890.
 #     cur.execute("UPDATE tourists SET number = '+1 (123) 456-7890' WHERE id_tourist = 2001;")
-# 
+#
 #     # 14. Обновление даты начала тура на 2024-07-01 для всех туров, цена которых меньше 2000 у.е.
 #     cur.execute("UPDATE tours SET start_date = '2024-07-01' WHERE price < 2000;")
-# 
+#
 #     # 15. Обновление электронной почты у всех туристов из России на new_email@example.com.
 #     cur.execute("""UPDATE tourists SET email = 'new_email@example.com' WHERE id_tourist IN
 #     (SELECT bookings.id_tourist FROM bookings JOIN
 #     tours ON bookings.id_tour = tours.id_tour WHERE country = 'Россия');""")
-# 
+#
 #     # 16. Обновление даты начала тура на 2023-08-15 для всех бронирований с количеством туристов больше 2.
 #     cur.execute("UPDATE bookings SET id_tour = 3 WHERE count > 2;")
-# 
+#
 #     # 17. Обновление названия тура на "Египет-отдых на курорте" для всех бронирований с id_тура равным 1003.
 #     cur.execute("UPDATE tours SET name = 'Египет-отдых на курорте' WHERE id_tour = 1003;")
 

@@ -21,7 +21,7 @@ with sq.connect('tourist.db') as con:
     name TEXT,
     country TEXT,
     city TEXT,
-    star_date TEXT,
+    start_date TEXT,
     end_date TEXT,
     price REAL);""")
 
@@ -33,6 +33,57 @@ with sq.connect('tourist.db') as con:
     REFERENCES tourists ON DELETE CASCADE ON UPDATE CASCADE,
     id_tour INTEGER
     REFERENCES tours ON DELETE CASCADE ON UPDATE CASCADE);""")
+
+
+tourists_data = [
+    ('Ivan', 'Ivanov', 'M', '1990-05-23', '+79123456789', 'ivan.ivanov@example.com'),
+    ('Maria', 'Petrova', 'F', '1987-12-01', '+79234567890', 'maria.petrova@example.com'),
+    ('Sergei', 'Sidorov', 'M', '1985-06-12', '+79345678901', 'sergei.sidorov@example.com'),
+    ('Elena', 'Kuznetsova', 'F', '1993-02-25', '+79456789012', 'elena.kuznetsova@example.com'),
+    ('Maxim', 'Smirnov', 'M', '1988-09-18', '+79567890123', 'maxim.smirnov@example.com'),
+    ('Olga', 'Novikova', 'F', '1991-11-06', '+79678901234', 'olga.novikova@example.com'),
+    ('Dmitry', 'Morozov', 'M', '1983-08-29', '+79789012345', 'dmitry.morozov@example.com'),
+    ('Natalia', 'Belyaeva', 'F', '1989-04-15', '+79890123456', 'natalia.belyaeva@example.com'),
+    ('Alexei', 'Fedorov', 'M', '1986-03-07', '+79901234567', 'alexei.fedorov@example.com'),
+    ('Anastasia', 'Kuzmina', 'F', '1994-07-21', '+79012345678', 'anastasia.kuzmina@example.com')
+]
+
+tours_data = [
+    ('Tour 1', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
+    ('Tour 2', 'Spain', 'Barcelona', '2023-06-15', '2023-06-25', 1500.0),
+    ('Tour 3', 'Italy', 'Rome', '2023-07-10', '2023-07-20', 2000.0),
+    ('Tour 4', 'France', 'Paris', '2023-08-01', '2023-08-10', 2500.0),
+    ('Tour 5', 'Australia', 'Sydney', '2023-09-05', '2023-09-15', 3000.0),
+    ('Tour 6', 'Japan', 'Tokyo', '2023-10-01', '2023-10-07', 1200.0),
+    ('Tour 7', 'Canada', 'Toronto', '2023-11-15', '2023-11-25', 1800.0),
+    ('Tour 8', 'Thailand', 'Bangkok', '2023-12-10', '2023-12-20', 2200.0),
+    ('Tour 9', 'Brazil', 'Rio de Janeiro', '2024-01-01', '2024-01-10', 2700.0),
+    ('Tour 10', 'South Africa', 'Cape Town', '2024-02-05', '2024-02-15', 3200.0)
+]
+
+bookings_data = [
+    ('2023-04-08', 2, 1, 3),
+    ('2023-04-09', 1, 2, 4),
+    ('2023-04-10', 3, 3, 2),
+    ('2023-04-11', 2, 4, 1),
+    ('2023-04-12', 1, 5, 5),
+    ('2023-04-13', 4, 6, 7),
+    ('2023-04-14', 2, 7, 8),
+    ('2023-04-15', 1, 8, 6),
+    ('2023-04-16', 3, 9, 10),
+    ('2023-04-17', 2, 10, 9)
+]
+
+
+with sq.connect('tourist.db') as con:
+    cur = con.cursor()
+
+    cur.executemany("INSERT INTO tourists (name, surname, gender, date_burn, number, email) VALUES (?, ?, ?, ?, ?, ?)",
+                    tourists_data)
+    cur.executemany("INSERT INTO tours (name, country, city, start_date, end_date, price) VALUES (?, ?, ?, ?, ?, ?)",
+                    tours_data)
+    cur.executemany("INSERT INTO bookings (booking_date, count, id_tourist, id_tour) VALUES (?, ?, ?, ?)",
+                    bookings_data)
 
 
 with sq.connect('tourist.db') as con:
@@ -58,7 +109,7 @@ with sq.connect('tourist.db') as con:
     start_date = "2023-06-01"
     end_date = "2023-08-31"
     cur.execute("""SELECT tourists.* FROM tourists JOIN bookings ON tourists.id_tourist=bookings.id_tourist JOIN
-    tours ON bookings.id_tour=tours.id_tour WHERE tours.star_date >= ? AND tours.end_date <= ?;""",
+    tours ON bookings.id_tour=tours.id_tour WHERE tours.start_date >= ? AND tours.end_date <= ?;""",
                 (start_date, end_date))
     print(f"Список всех туристов, сделавших бронирование в период с {start_date} по {end_date}:")
     print(cur.fetchall())
@@ -86,9 +137,9 @@ with sq.connect('tourist.db') as con:
     print(cur.fetchall())
 
     # 9. Вывести список всех туристов, которые сделали бронирование на тур в указанную дату
-    cur.execute("""SELECT tourists.name, tourists.surname, tours.name, tours.star_date FROM tourists JOIN
+    cur.execute("""SELECT tourists.name, tourists.surname, tours.name, tours.start_date FROM tourists JOIN
     bookings b ON tourists.id_tourist = b.id_tourist JOIN
-    tours ON tours.id_tour = b.id_tour WHERE tours.star_date = ?""", ('2023-06-15',))
+    tours ON tours.id_tour = b.id_tour WHERE tours.start_date = ?""", ('2023-06-15',))
     print('Список туристов, которые забронировали тур на 15 июня 2023 года:')
     print(cur.fetchall())
 

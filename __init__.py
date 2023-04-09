@@ -50,7 +50,7 @@ tourists_data = [
 
 tours_data = [
     ('Tour 1', 'USA', 'New York', '2023-05-01', '2023-05-07', 1000.0),
-    ('Tour 2', 'Spain', 'Barcelona', '2023-06-15', '2023-06-25', 1500.0),
+    ('Испания-путешествие по городам', 'Spain', 'Barcelona', '2023-06-15', '2023-06-25', 1500.0),
     ('Tour 3', 'Italy', 'Rome', '2023-07-10', '2023-07-20', 7000.0),
     ('Tour 4', 'France', 'Paris', '2023-08-01', '2023-08-10', 2500.0),
     ('Tour 5', 'Australia', 'Sydney', '2023-09-05', '2023-09-15', 3000.0),
@@ -58,7 +58,7 @@ tours_data = [
     ('Tour 7', 'Canada', 'Toronto', '2023-11-15', '2023-11-25', 10800.0),
     ('Tour 8', 'Thailand', 'Bangkok', '2023-12-10', '2023-12-20', 2200.0),
     ('Tour 9', 'Brazil', 'Rio de Janeiro', '2024-01-01', '2024-01-10', 2700.0),
-    ('Испания-путешествие по городам', 'South Africa', 'Cape Town', '2024-02-05', '2024-02-15', 3200.0)
+    ('Tour 10', 'Russia', 'Moscow', '2024-02-05', '2024-02-15', 3200.0)
 ]
 
 bookings_data = [
@@ -199,7 +199,7 @@ with sq.connect('tourist.db') as con:
 #     # 15. Обновление электронной почты у всех туристов из России на new_email@example.com.
 #     cur.execute("""UPDATE tourists SET email = 'new_email@example.com' WHERE id_tourist IN
 #     (SELECT bookings.id_tourist FROM bookings JOIN
-#     tours ON bookings.id_tour = tours.id_tour WHERE country = 'Россия');""")
+#     tours ON bookings.id_tour = tours.id_tour WHERE country = 'Russia');""")
 #
 #     # 16. Обновление даты начала тура на 2023-08-15 для всех бронирований с количеством туристов больше 2.
 #     cur.execute("UPDATE bookings SET id_tour = 3 WHERE count > 2;")

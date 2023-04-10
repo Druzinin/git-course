@@ -62,6 +62,7 @@ VALUES
     (3011, 9891.88, '2021-06-10', 2006, 1001);
 
 
+7.
 SELECT DISTINCT city FROM customers;
 SELECT DISTINCT rating FROM customers;
 SELECT DISTINCT comm FROM salespeople;
@@ -83,3 +84,22 @@ SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
 SELECT * FROM customers WHERE cname LIKE 'C%';
 SELECT * FROM customers WHERE cname LIKE 'G%';
 SELECT * FROM customers WHERE cname LIKE 'G%s';
+
+
+8.
+SELECT COUNT(*) AS "Количество продавцов" FROM salespeople;
+SELECT COUNT(DISTINCT city) AS "Города продавцов" FROM salespeople;
+SELECT COUNT(*) AS "Количество строк" FROM customers;
+SELECT SUM(rating) AS "Общий рейтинг заказчиков" FROM customers;
+SELECT SUM(amt) AS "Сумма заказов" FROM orders;
+SELECT AVG(rating) AS "Средний рейтинг заказчиков" FROM customers;
+SELECT AVG(amt) AS "Средняя стоимость заказа" FROM orders;
+SELECT MIN(rating) AS Минимальный рейтинг заказчика FROM customers;
+SELECT MAX(comm) AS Максимальная комиссия продавца FROM salespeople;
+SELECT SUM(amt) + 100 AS Общая стоимость заказа FROM orders;
+SELECT cname AS Имя, city AS Город, rating / 50 AS Рейтинг (уменьшенный в 50 раз) FROM customers;
+SELECT sname AS Имя, city AS Город, SIN(comm) * 10 AS Комиссионные (синус, увеличенный в 10 раз) FROM salespeople;
+SELECT 'Поле cnum - это номер заказчика. Имя заказчика и город также представлены в таблице.' AS 'Описание' FROM customers LIMIT 1;
+SELECT 'Поле snum - это номер продавца. Имя продавца и город также представлены в таблице.' AS 'Описание snum',
+       'Поле comm - это комиссионные продавца.' AS 'Описание comm'
+FROM salespeople LIMIT 1;

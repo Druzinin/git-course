@@ -1,134 +1,62 @@
-ALTER TABLE Продавцы
-ADD Naprav VARCHAR(50) NOT NULL;
+CREATE DATABASE gruber;
+USE gruber;
 
-UPDATE Продавцы
-SET Naprav = 'продукты'
-WHERE Sid = 1;
+CREATE TABLE salespeople (
+  snum INT(8) PRIMARY KEY,
+  sname VARCHAR(50),
+  city VARCHAR(50),
+  comm DECIMAL(5, 2)
+);
 
-UPDATE Продавцы
-SET Naprav = 'молочная продукция'
-WHERE Sid = 2;
+CREATE TABLE customers (
+  cnum INT(8) PRIMARY KEY,
+  cname VARCHAR(50),
+  city VARCHAR(50),
+  rating INT,
+  snum INT,
+  FOREIGN KEY (snum) REFERENCES
+  salespeople(snum)
+);
 
-UPDATE Продавцы
-SET Naprav = 'алкогольная продукция'
-WHERE Sid = 3;
+CREATE TABLE orders (
+  onum INT(8) PRIMARY KEY,
+  amt DECIMAL(8, 2),
+  odate DATE,
+  cnum INT,
+  snum INT,
+  FOREIGN KEY (cnum) REFERENCES customers(cnum),
+  FOREIGN KEY (snum) REFERENCES salespeople(snum)
+);
 
-UPDATE Продавцы
-SET Naprav = 'табачные изделия'
-WHERE Sid = 4;
 
-UPDATE Продавцы
-SET Naprav = 'колбасная продукция'
-WHERE Sid = 5;
 
-UPDATE Продавцы
-SET Naprav = 'мясная продукция'
-WHERE Sid = 6;
+INSERT INTO salespeople (salesperson_id, name, city, commission_rate)
+VALUES
+    (1001, 'Peel', 'London', 0.12),
+    (1002, 'Serres', 'San Jose', 0.13),
+    (1004, 'Motika', 'London', 0.11),
+    (1007, 'Rifkin', 'Barcelona', 0.15),
+    (1003, 'Axelrod', 'New York', 0.10);
 
-UPDATE Продавцы
-SET Naprav = 'соки-воды'
-WHERE Sid = 7;
+INSERT INTO customers (customer_id, name, city, outstanding_balance, salesperson_id)
+VALUES
+    (2001, 'Hoffman', 'London', 100, 1001),
+    (2002, 'Giovanni', 'Rome', 200, 1003),
+    (2003, 'Liu', 'San Jose', 200, 1002),
+    (2004, 'Grass', 'Berlin', 300, 1002),
+    (2006, 'Clemens', 'London', 100, 1001),
+    (2008, 'Cisneros', 'San Jose', 300, 1007),
+    (2007, 'Pereira', 'Rome', 100, 1004);
 
-ALTER TABLE Заказы
-ADD Dostavka INT NOT NULL;
-
-UPDATE Заказы
-SET Dostavka = 250
-WHERE Orderid = 1001;
-
-UPDATE Заказы
-SET Dostavka = 150
-WHERE Orderid = 1002;
-
-UPDATE Заказы
-SET Dostavka = 200
-WHERE Orderid = 1003;
-
-UPDATE Заказы
-SET Dostavka = 100
-WHERE Orderid = 1004;
-
-UPDATE Заказы
-SET Dostavka = 300
-WHERE Orderid = 1005;
-
-UPDATE Заказы
-SET Dostavka = 180
-WHERE Orderid = 1006;
-
-UPDATE Заказы
-SET Dostavka = 190
-WHERE Orderid = 1007;
-
-UPDATE Заказы
-SET Dostavka = 220
-WHERE Orderid = 1008;
-
-ALTER TABLE Заказы
-ADD Oplata VARCHAR(20) NOT NULL;
-
-UPDATE Заказы
-SET Oplata = 'наличный'
-WHERE Orderid = 1001;
-
-UPDATE Заказы
-SET Oplata = 'безналичный'
-WHERE Orderid = 1002;
-
-UPDATE Заказы
-SET Oplata = 'наличный'
-WHERE Orderid = 1003;
-
-UPDATE Заказы
-SET Oplata = 'безналичный'
-WHERE Orderid = 1004;
-
-UPDATE Заказы
-SET Oplata = 'безналичный'
-WHERE Orderid = 1005;
-
-UPDATE Заказы
-SET Oplata = 'наличный'
-WHERE Orderid = 1006;
-
-UPDATE Заказы
-SET Oplata = 'безналичный'
-WHERE Orderid = 1007;
-
-UPDATE Заказы
-SET Oplata = 'безналичный'
-WHERE Orderid = 1008;
-
-ALTER TABLE Заказчики
-ADD pol CHAR(1) NOT NULL;
-
-UPDATE Заказчики
-SET pol = 'ж'
-WHERE Cname = 'Maria';
-
-UPDATE Заказчики
-SET pol = 'м'
-WHERE Cname = 'John';
-
-UPDATE Заказчики
-SET pol = 'ж'
-WHERE Cname = 'Anna';
-
-UPDATE Заказчики
-SET pol = 'м'
-WHERE Cname = 'Tom';
-
-UPDATE Заказчики
-SET pol = 'ж'
-WHERE Cname = 'Lisa';
-
-UPDATE Заказчики
-SET City = 'Paris'
-WHERE City = 'London';
-
-UPDATE Продавцы
-SET Comm = 0.16
-WHERE Comm > 0.12;
-
-DELETE FROM Заказы
-WHERE Orderid = 3011;
+INSERT INTO orders (order_id, amount, order_date, customer_id, salesperson_id)
+VALUES
+    (3001, 18.69, '2021-03-10', 2008, 1007),
+    (3003, 767.19, '2021-03-10', 2001, 1001),
+    (3002, 1900.10, '2021-03-10', 2007, 1004),
+    (3005, 5160.45, '2021-03-10', 2003, 1002),
+    (3006, 1098.16, '2021-03-10', 2008, 1007),
+    (3009, 1713.23, '2021-04-10', 2002, 1003),
+    (3007, 75.75, '2021-04-10', 2004, 1002),
+    (3008, 4723.00, '2021-05-10', 2006, 1001),
+    (3010, 1309.95, '2021-06-10', 2004, 1002),
+    (3011, 9891.88, '2021-06-10', 2006, 1001);

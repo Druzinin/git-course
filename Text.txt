@@ -60,3 +60,26 @@ VALUES
     (3008, 4723.00, '2021-05-10', 2006, 1001),
     (3010, 1309.95, '2021-06-10', 2004, 1002),
     (3011, 9891.88, '2021-06-10', 2006, 1001);
+
+
+SELECT DISTINCT city FROM customers;
+SELECT DISTINCT rating FROM customers;
+SELECT DISTINCT comm FROM salespeople;
+SELECT * FROM salespeople WHERE city = 'London';
+SELECT * FROM salespeople WHERE comm > 0.12;
+SELECT * FROM customers WHERE city = 'Rome';
+SELECT * FROM customers WHERE rating IN (100, 300);
+SELECT * FROM orders WHERE amt < 1000;
+SELECT * FROM customers WHERE city = 'Rome' AND rating = 200;
+SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
+
+SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
+SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
+SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
+SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
+SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'G';
+SELECT * FROM customers WHERE city BETWEEN 'A' AND 'L';
+SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
+SELECT * FROM customers WHERE cname LIKE 'C%';
+SELECT * FROM customers WHERE cname LIKE 'G%';
+SELECT * FROM customers WHERE cname LIKE 'G%s';

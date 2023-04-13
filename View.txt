@@ -1,80 +1,42 @@
 SELECT DISTINCT city FROM customers;
-
 CREATE VIEW city_list AS SELECT DISTINCT city FROM customers;
-
 SELECT DISTINCT rating FROM customers;
-
 CREATE VIEW rating_list AS SELECT DISTINCT rating FROM customers;
-
 SELECT DISTINCT comm FROM salespeople;
-
 CREATE VIEW comm_list AS SELECT DISTINCT comm FROM salespeople;
-
 SELECT * FROM salespeople WHERE city = 'London';
-
 CREATE VIEW london_salespeople AS SELECT * FROM salespeople WHERE city = 'London';
-
 SELECT * FROM salespeople WHERE comm > 0.12;
-
 CREATE VIEW high_comm_salespeople AS SELECT * FROM salespeople WHERE comm > 0.12;
-
 SELECT * FROM customers WHERE city = 'Rome';
-
 CREATE VIEW rome_customers AS SELECT * FROM customers WHERE city = 'Rome';
-
 SELECT * FROM customers WHERE rating IN (100, 300);
-
 CREATE VIEW popular_customers AS SELECT * FROM customers WHERE rating IN (100, 300);
-
 SELECT * FROM orders WHERE amt < 1000;
-
 CREATE VIEW low_amt_orders AS SELECT * FROM orders WHERE amt < 1000;
-
 SELECT * FROM customers WHERE city = 'Rome' AND rating = 200;
-
 CREATE VIEW specific_customer AS SELECT * FROM customers WHERE city = 'Rome' AND rating = 200;
-
 SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
-
 CREATE VIEW berlin_or_popular_customers AS SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
 
 
 SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
-
-CREATE VIEW selected_customers AS SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
-
+CREATE VIEW 7_11 AS SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
 SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
-
-CREATE VIEW selected_orders AS SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
-
+CREATE VIEW 7_12 AS SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
 SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
-
-CREATE VIEW selected_salespeople AS SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
-
+CREATE VIEW 7_13 AS SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
 SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
-
-CREATE VIEW moderate_comm_salespeople AS SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
-
-SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'G';
-
-CREATE VIEW a_to_g_customers AS SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'G';
-
-SELECT * FROM customers WHERE city BETWEEN 'A' AND 'L';
-
-CREATE VIEW a_to_l_cities_customers AS SELECT * FROM customers WHERE city BETWEEN 'A' AND 'L';
-
-SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
-
-CREATE VIEW march_to_may_orders AS SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
-
+CREATE VIEW 7_14 AS SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
+SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'H';
+CREATE VIEW 7_15 AS SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'H';
+SELECT * FROM customers WHERE city BETWEEN 'A' AND 'H';
+CREATE VIEW 7_16 AS SELECT * FROM customers WHERE city BETWEEN 'A' AND 'H';
+SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-11';
+CREATE VIEW 7_17 AS SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-11';
 SELECT * FROM customers WHERE cname LIKE 'C%';
-
-CREATE VIEW c_customers AS SELECT * FROM customers WHERE cname LIKE 'C%';
-
+CREATE VIEW 7_18 AS SELECT * FROM customers WHERE cname LIKE 'C%';
 SELECT * FROM customers WHERE cname LIKE 'G%';
-
-CREATE VIEW g_customers AS SELECT * FROM customers WHERE cname LIKE 'G%';
-
+CREATE VIEW 7_19 AS SELECT * FROM customers WHERE cname LIKE 'G%';
 SELECT * FROM customers WHERE cname LIKE 'G%s';
-
-CREATE VIEW gs_customers AS SELECT * FROM customers WHERE cname LIKE 'G%s';
+CREATE VIEW 7_20 AS SELECT * FROM customers WHERE cname LIKE 'G%s';

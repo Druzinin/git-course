@@ -11,6 +11,7 @@ CREATE TABLE salespeople (
 CREATE TABLE customers (
   cnum INT(8) PRIMARY KEY,
   cname VARCHAR(50),
+  pol VARCHAR(50),
   city VARCHAR(50),
   rating INT,
   snum INT,
@@ -30,7 +31,7 @@ CREATE TABLE orders (
 
 
 
-INSERT INTO salespeople (salesperson_id, name, city, commission_rate)
+INSERT INTO salespeople (snum, sname, city, comm)
 VALUES
     (1001, 'Peel', 'London', 0.12),
     (1002, 'Serres', 'San Jose', 0.13),
@@ -38,17 +39,17 @@ VALUES
     (1007, 'Rifkin', 'Barcelona', 0.15),
     (1003, 'Axelrod', 'New York', 0.10);
 
-INSERT INTO customers (customer_id, name, city, outstanding_balance, salesperson_id)
+INSERT INTO customers (cnum, cname, pol, city, rating, snum)
 VALUES
-    (2001, 'Hoffman', 'London', 100, 1001),
-    (2002, 'Giovanni', 'Rome', 200, 1003),
-    (2003, 'Liu', 'San Jose', 200, 1002),
-    (2004, 'Grass', 'Berlin', 300, 1002),
-    (2006, 'Clemens', 'London', 100, 1001),
-    (2008, 'Cisneros', 'San Jose', 300, 1007),
-    (2007, 'Pereira', 'Rome', 100, 1004);
+    (2001, 'Hoffman', 'ж', 'London', 100, 1001),
+    (2002, 'Giovanni', 'ж', 'Rome', 200, 1003),
+    (2003, 'Liu', 'м', 'San Jose', 200, 1002),
+    (2004, 'Grass', 'м', 'Berlin', 300, 1002),
+    (2006, 'Clemens', 'ж', 'London', 100, 1001),
+    (2008, 'Cisneros', 'ж', 'San Jose', 300, 1007),
+    (2007, 'Pereira', 'м', 'Rome', 100, 1004);
 
-INSERT INTO orders (order_id, amount, order_date, customer_id, salesperson_id)
+INSERT INTO orders (onum, amt, odate, cnum, snum)
 VALUES
     (3001, 18.69, '2021-03-10', 2008, 1007),
     (3003, 767.19, '2021-03-10', 2001, 1001),

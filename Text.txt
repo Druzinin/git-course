@@ -133,4 +133,36 @@ SELECT orders.odate, COUNT(DISTINCT orders.snum) AS num_salespeople FROM orders 
 CREATE VIEW num_orders_per_seller_and_day AS
 SELECT orders.odate, orders.snum, COUNT(*) AS num_orders FROM orders GROUP BY orders.odate, orders.snum;
 
-C
+
+CREATE VIEW customer_ratings AS
+SELECT cname, rating FROM customers
+ORDER BY rating;
+
+CREATE VIEW salespeople_customers AS
+SELECT salespeople.sname, customers.cname FROM salespeople
+JOIN orders ON salespeople.snum = orders.snum
+JOIN customers c ON orders.cnum = customers.cnum
+ORDER BY salespeople.sname;
+
+CREATE VIEW salespeople_desc AS
+SELECT snum, sname, city FROM salespeople
+ORDER BY sname DESC;
+
+CREATE VIEW customers_asc AS
+SELECT cname, city, rating FROM customers
+ORDER BY rating, cname;
+
+CREATE VIEW salespeople_by_city AS
+SELECT sname, city FROM salespeople
+GROUP BY city
+ORDER BY sname;
+
+CREATE VIEW customers_grouped AS
+SELECT cname, city, rating FROM customers
+GROUP BY city
+ORDER BY city;
+
+CREATE VIEW city_ratings_count AS
+SELECT city, COUNT(rating) AS rating_count FROM customers
+GROUP BY city
+ORDER BY rating_count ASC;

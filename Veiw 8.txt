@@ -1,0 +1,15 @@
+CREATE VIEW 8_1 AS SELECT COUNT(*) AS "Количество продавцов" FROM salespeople;
+CREATE VIEW 8_2 AS SELECT COUNT(DISTINCT city) AS "Города продавцов" FROM salespeople;
+CREATE VIEW 8_3 AS SELECT COUNT() AS "Количество строк" FROM customers;
+CREATE VIEW 8_4 AS SELECT SUM(rating) AS "Общий рейтинг заказчиков" FROM customers;
+CREATE VIEW 8_5 AS SELECT SUM(amt) AS "Сумма заказов" FROM orders;
+CREATE VIEW 8_6 AS SELECT AVG(rating) AS "Средний рейтинг заказчиков" FROM customers;
+CREATE VIEW 8_7 AS SELECT AVG(amt) AS "Средняя стоимость заказа" FROM orders;
+CREATE VIEW 8_8 AS SELECT MIN(rating) AS Минимальный рейтинг заказчика FROM customers;
+CREATE VIEW 8_9 AS SELECT MAX(comm) AS Максимальная комиссия продавца FROM salespeople;
+CREATE VIEW 8_10 AS SELECT SUM(amt) + 100 AS Общая стоимость заказа FROM orders;
+CREATE VIEW 8_11 AS SELECT cname AS Имя, city AS Город, rating / 50 AS Рейтинг FROM customers;
+CREATE VIEW 8_12 AS SELECT sname AS Имя, city AS Город, SIN(comm)  10 AS Комиссионные FROM salespeople;
+CREATE VIEW 8_13 AS SELECT 'Поле cnum - это номер заказчика. Имя заказчика и город также представлены в таблице.' AS 'Описание' FROM customers LIMIT 1;
+CREATE VIEW 8_14 AS SELECT 'Поле snum - это номер продавца. Имя продавца и город также представлены в таблице.' AS 'Описание snum',
+       'Поле comm - это комиссионные продавца.' AS 'Описание comm' FROM salespeople LIMIT 1;

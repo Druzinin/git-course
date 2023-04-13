@@ -1,0 +1,39 @@
+1. SELECT DISTINCT city FROM customers;
+
+CREATE VIEW city_list AS SELECT DISTINCT city FROM customers;
+
+2. SELECT DISTINCT rating FROM customers;
+
+CREATE VIEW rating_list AS SELECT DISTINCT rating FROM customers;
+
+3. SELECT DISTINCT comm FROM salespeople;
+
+CREATE VIEW comm_list AS SELECT DISTINCT comm FROM salespeople;
+
+4. SELECT * FROM salespeople WHERE city = 'London';
+
+CREATE VIEW london_salespeople AS SELECT * FROM salespeople WHERE city = 'London';
+
+5. SELECT * FROM salespeople WHERE comm > 0.12;
+
+CREATE VIEW high_comm_salespeople AS SELECT * FROM salespeople WHERE comm > 0.12;
+
+6. SELECT * FROM customers WHERE city = 'Rome';
+
+CREATE VIEW rome_customers AS SELECT * FROM customers WHERE city = 'Rome';
+
+7. SELECT * FROM customers WHERE rating IN (100, 300);
+
+CREATE VIEW popular_customers AS SELECT * FROM customers WHERE rating IN (100, 300);
+
+8. SELECT * FROM orders WHERE amt < 1000;
+
+CREATE VIEW low_amt_orders AS SELECT * FROM orders WHERE amt < 1000;
+
+9. SELECT * FROM customers WHERE city = 'Rome' AND rating = 200;
+
+CREATE VIEW specific_customer AS SELECT * FROM customers WHERE city = 'Rome' AND rating = 200;
+
+10. SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
+
+CREATE VIEW berlin_or_popular_customers AS SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;

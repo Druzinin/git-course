@@ -39,42 +39,42 @@ SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
 CREATE VIEW berlin_or_popular_customers AS SELECT * FROM customers WHERE city = 'Berlin' OR rating = 300;
 
 
-SELECT  FROM customers WHERE snum IN (1001, 1002, 1007);
+SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
 
-CREATE VIEW selected_customers AS SELECT  FROM customers WHERE snum IN (1001, 1002, 1007);
+CREATE VIEW selected_customers AS SELECT * FROM customers WHERE snum IN (1001, 1002, 1007);
 
-SELECT  FROM orders WHERE cnum IN (2001, 2004, 2008);
+SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
 
-CREATE VIEW selected_orders AS SELECT  FROM orders WHERE cnum IN (2001, 2004, 2008);
+CREATE VIEW selected_orders AS SELECT * FROM orders WHERE cnum IN (2001, 2004, 2008);
 
-SELECT  FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
+SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
 
-CREATE VIEW selected_salespeople AS SELECT  FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
+CREATE VIEW selected_salespeople AS SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
 
-SELECT  FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
+SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
 
-CREATE VIEW high_comm_salespeople AS SELECT  FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
+CREATE VIEW moderate_comm_salespeople AS SELECT * FROM salespeople WHERE comm BETWEEN 0.1 AND 0.13;
 
-SELECT  FROM customers WHERE cname BETWEEN 'A' AND 'G';
+SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'G';
 
-CREATE VIEW a_to_g_customers AS SELECT  FROM customers WHERE cname BETWEEN 'A' AND 'G';
+CREATE VIEW a_to_g_customers AS SELECT * FROM customers WHERE cname BETWEEN 'A' AND 'G';
 
-SELECT  FROM customers WHERE city BETWEEN 'A' AND 'L';
+SELECT * FROM customers WHERE city BETWEEN 'A' AND 'L';
 
-CREATE VIEW a_to_l_city_customers AS SELECT  FROM customers WHERE city BETWEEN 'A' AND 'L';
+CREATE VIEW a_to_l_cities_customers AS SELECT * FROM customers WHERE city BETWEEN 'A' AND 'L';
 
-SELECT  FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
+SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
 
-CREATE VIEW march_to_may_orders AS SELECT  FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
+CREATE VIEW march_to_may_orders AS SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
 
-SELECT  FROM customers WHERE cname LIKE 'C%';
+SELECT * FROM customers WHERE cname LIKE 'C%';
 
-CREATE VIEW c_start_customers AS SELECT  FROM customers WHERE cname LIKE 'C%';
+CREATE VIEW c_customers AS SELECT * FROM customers WHERE cname LIKE 'C%';
 
-SELECT  FROM customers WHERE cname LIKE 'G%';
+SELECT * FROM customers WHERE cname LIKE 'G%';
 
-CREATE VIEW g_start_customers AS SELECT  FROM customers WHERE cname LIKE 'G%';
+CREATE VIEW g_customers AS SELECT * FROM customers WHERE cname LIKE 'G%';
 
-SELECT  FROM customers WHERE cname LIKE 'G%s';
+SELECT * FROM customers WHERE cname LIKE 'G%s';
 
-CREATE VIEW gs_start_customers AS SELECT  FROM customers WHERE cname LIKE 'G%s';
+CREATE VIEW gs_customers AS SELECT * FROM customers WHERE cname LIKE 'G%s';

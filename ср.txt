@@ -1,83 +1,34 @@
-1 вариант
-1.
+-- 1
 SELECT DISTINCT odate FROM orders;
+SELECT city FROM customers WHERE cname = 'Lui';
+SELECT cname, city FROM customers WHERE city in ('Berlin', 'Rome');
+SELECT cname, cnum FROM customers WHERE cname LIKE 'C%' AND cnum IN (2002, 2004, 2006);
+SELECT snum, COUNT(snum) FROM orders WHERE snum IN (1001, 1007) GROUP BY snum;
 
-2.
-SELECT city FROM customers WHERE cname = 'Liu';
-
-3.
-SELECT cname FROM customers WHERE city IN ('Berlin', 'Rome');
-
-4.
-SELECT cname FROM customers WHERE cnum IN (2002, 2004, 2006) AND cname LIKE 'C%';
-
-5.
-SELECT snum, COUNT(*) as num_orders FROM orders WHERE snum IN (1001, 1007) GROUP BY snum;
-
-
-2 вариант
-1.
-SELECT DISTINCT(city) FROM customers;
-
-2.
+-- 2
+SELECT DISTINCT city FROM customers;
 SELECT city FROM salespeople WHERE sname = 'Peel';
+SELECT sname, city, comm FROM salespeople WHERE city = 'London' AND comm > 0.11;
+SELECT onum, odate, amt FROM orders WHERE odate BETWEEN '2021-06-01' AND '2021-08-31' AND amt > 1000;
+SELECT AVG(amt) FROM orders WHERE odate BETWEEN '2021-03-01' AND '2021-05-31';
 
-3.
-SELECT sname FROM salespeople WHERE city = 'London' AND comm > 0.11;
+-- 3
+SELECT DISTINCT comm FROM salespeople;
+SELECT onum, odate FROM orders WHERE odate > '1990-03-10';
+SELECT onum, odate FROM orders WHERE odate IN ('2021-03-10', '2021-06-10');
+SELECT cname, city FROM customers WHERE city LIKE 'R%' OR city LIKE 'S%';
+SELECT min(rating) FROM customers WHERE city = 'San Jose';
 
-4.
-SELECT onum FROM orders WHERE odate BETWEEN '2021-06-01' AND '2021-08-31' AND amt > 1000;
+-- 4
+SELECT DISTINCT rating FROM customers;
+SELECT cname, city FROM customers WHERE city = 'London';
+SELECT cname, city, rating FROM customers WHERE city = 'San Jose' AND rating > 150;
+SELECT sname, city FROM salespeople WHERE city = 'London' AND sname LIKE 'M%';
+SELECT max(amt) FROM orders WHERE odate = '2021-03-10';
 
-5.
-SELECT AVG(amt) as avg_amount FROM orders WHERE odate BETWEEN '2021-03-01' AND '2021-05-31';
-
-
-3 вариант
-1.
-SELECT DISTINCT(comm) FROM salespeople;
-
-2.
-SELECT * FROM orders WHERE odate > '1990-03-10';
-
-3.
-SELECT * FROM orders WHERE odate IN ('1990-03-10', '1990-06-10');
-
-4.
-SELECT cname FROM customers WHERE city LIKE 'R%' OR city LIKE 'S%';
-
-5.
-SELECT MIN(rating) as min_rating FROM customers WHERE city = 'San Jose';
-
-
-4 вариант
-1.
-SELECT DISTINCT(rating) FROM customers;
-
-2.
-SELECT cname FROM customers WHERE city = 'London';
-
-3.
-SELECT cname FROM customers WHERE city = 'San Jose' AND rating > 150;
-
-4.
-SELECT sname FROM salespeople WHERE city = 'London' AND sname LIKE '%M%';
-
-5.
-SELECT MAX(amt) AS max_amt FROM orders WHERE odate = '1990-03-10' LIMIT 1;
-
-
-5 вариант
-1.
-SELECT DISTINCT(city) FROM customers;
-
-2.
-SELECT sname FROM salespeople WHERE comm < 0.15;
-
-3.
-SELECT onum FROM orders WHERE odate = '2021-04-10' AND amt > 1000;
-
-4.
-SELECT cname FROM customers WHERE city = 'Rome' AND cname LIKE '%P%';
-
-5.
-SELECT SUM(rating) as total_rating FROM customers WHERE city = 'Rome';
+-- 5
+SELECT DISTINCT city FROM customers;
+SELECT sname, comm FROM salespeople WHERE comm < 0.15;
+SELECT onum, odate, amt FROM orders WHERE odate = '2021-04-10' AND amt > 1000;
+SELECT cname, city FROM customers WHERE city = 'Rome' AND cname LIKE 'P%';
+SELECT SUM(rating) FROM customers WHERE city = 'Rome';

@@ -125,50 +125,13 @@ CREATE VIEW 9_15 AS SELECT city, COUNT(rating) as rating_count FROM customers GR
 
 
 10.
-CREATE VIEW sales_between_700_and_2000 AS
-SELECT salespeople.sname AS salesperson_name, customers.cname AS customer_name, orders.amt AS purchase_amount
-FROM salespeople JOIN customers ON salespeople.snum = customers.snum JOIN orders ON customers.cnum = orders.cnum
-WHERE orders.amt BETWEEN 700 AND 2000;
-
-CREATE VIEW sales_without_commission AS
-SELECT salespeople.sname AS salesperson_name, SUM(orders.amt) AS purchase_amount FROM salespeople
-JOIN customers ON salespeople.snum = customers.snum JOIN orders ON customers.cnum = orders.cnum
-WHERE salespeople.comm = 0 GROUP BY salespeople.sname;
-
-CREATE VIEW sales_customers AS
-SELECT salespeople.sname AS salesperson_name, customers.cname AS customer_name FROM salespeople
-JOIN customers ON salespeople.snum = customers.snum;
-
-CREATE VIEW sales_customers_same_city AS
-SELECT salespeople.sname AS salesperson_name, customers.cname AS customer_name, customers.city AS customer_city
-FROM salespeople JOIN customers ON salespeople.snum = customers.snum
-JOIN customers2 ON c2.cnum <> customers.cnum AND c2.snum = salespeople.snum AND c2.city = customers.city;
-
-CREATE VIEW sales_less_than_12_percent AS
-SELECT orders.odate AS order_date, salespeople.comm AS salesperson_commission FROM salespeople
-JOIN customers ON salespeople.snum = customers.snum JOIN orders ON customers.cnum = orders.cnum
-WHERE salespeople.comm < 0.12;
-
-CREATE VIEW CustomersOrdersSumByRating AS
-SELECT customers.cname AS 'Имя покупателя', orders.amt AS 'Сумма заказа', customers.rating AS 'Рейтинг'
-FROM customers JOIN orders ON customers.cnum = orders.cnum WHERE customers.rating > 100;
-
-CREATE VIEW CustomersByOrderDate AS
-SELECT customers.cname AS 'Имя заказчика', orders.odate AS 'Дата заказа' FROM customers
-JOIN orders ON customers.cnum = orders.cnum WHERE orders.odate = '2021-03-10';
-
-CREATE VIEW CustomersOrdersSalespeopleByDate AS
-SELECT customers.cname AS 'Имя покупателя', orders.amt AS 'Сумма заказа', salespeople.comm
-AS 'Комиссионные продавца', orders.odate AS 'Дата заказа' FROM customers JOIN orders ON customers.cnum = orders.cnum
-JOIN salespeople ON orders.snum = salespeople.snum WHERE orders.odate = '2021-04-10';
-
-CREATE VIEW CustomersRatingOrdersSumByDate AS
-SELECT customers.cname AS 'Имя заказчика', customers.rating AS 'Рейтинг', orders.amt AS 'Сумма заказа', orders.odate
-AS 'Дата заказа' FROM customers JOIN orders ON customers.cnum = orders.cnum
-WHERE orders.odate = '2021-03-10' AND orders.amt > 3000;
-
-CREATE VIEW OrdersCustomersSalespeopleByCity AS
-SELECT orders.onum AS 'Номер заказа', customers.cname AS 'Имя заказчика', salespeople.sname
-AS 'Имя продавца', customers.city AS 'Название города' FROM orders JOIN customers ON orders.cnum = customers.cnum
-JOIN salespeople ON orders.snum = salespeople.snum
-WHERE customers.city = 'San Jose' AND salespeople.city = 'San Jose';
+CREATE VIEW 10_1 AS SELECT sname, cname, amt FROM salespeople, customers, orders WHERE amt BETWEEN 700 AND 2000 AND orders.cnum = customers.cnum AND orders.snum = salespeople.snum;
+CREATE VIEW 10_2 AS SELECT sname, (amt - (amt * comm)) FROM salespeople, orders WHERE salespeople.snum = orders.snum;
+CREATE VIEW 10_3 AS SELECT sname, cname FROM salespeople, customers WHERE customers.snum = salespeople.snum ORDER BY sname;
+CREATE VIEW 10_4 AS SELECT sname, cname, customers.city FROM salespeople, customers WHERE customers.snum = salespeople.snum AND customers.city = salespeople.city;
+CREATE VIEW 10_5 AS SELECT odate, comm FROM orders, salespeople WHERE orders.snum = salespeople.snum AND comm < 0.12;
+CREATE VIEW 10_6 AS SELECT amt, rating FROM orders, customers WHERE orders.cnum = customers.cnum AND rating > 100;
+CREATE VIEW 10_7 AS SELECT cname, odate FROM orders, customers WHERE orders.cnum = customers.cnum AND odate = '2021-03-10';
+CREATE VIEW 10_8 AS SELECT cname, amt, comm, odate FROM salespeople, orders, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND odate = '2021-04-10';
+CREATE VIEW 10_9 AS SELECT cname, rating, amt, odate FROM orders, customers where orders.cnum = customers.cnum AND amt > 3000 AND odate='2021-03-10';
+CREATE VIEW 10_10 AS SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND salespeople.snum = orders.snum AND customers.city = 'San Jose' AND salespeople.city = 'San Jose' AND salespeople.city = customers.city;

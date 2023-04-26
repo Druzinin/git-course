@@ -106,66 +106,22 @@ CREATE VIEW 8_14 AS SELECT 'Поле snum - это номер продавца. 
 
 
 9.
-CREATE VIEW num_cities AS
-SELECT COUNT(DISTINCT city) AS num_cities FROM customers WHERE city IS NOT NULL;
+CREATE VIEW 9_1 AS SELECT COUNT(DISTINCT city) FROM customers WHERE city IS NOT NULL;
+CREATE VIEW 9_2 AS SELECT cname, min(amt) FROM customers JOIN orders USING (cnum) GROUP BY cnum;
+CREATE VIEW 9_3 AS SELECT sname, min(amt) FROM salespeople JOIN orders USING (snum) GROUP BY snum, odate;
+CREATE VIEW 9_4 AS SELECT cname, min(amt) FROM customers JOIN orders USING (snum) WHERE cname IN ('Cisneros', 'Grass', 'Clemens') GROUP BY customers.snum;
+CREATE VIEW 9_5 AS SELECT cname FROM customers WHERE cname LIKE 'G%' ORDER BY cname;
+CREATE VIEW 9_6 AS SELECT city, MAX(rating) FROM customers GROUP BY city;
+CREATE VIEW 9_7 AS SELECT odate, COUNT(DISTINCT snum) FROM orders GROUP BY odate;
+CREATE VIEW 9_8 AS SELECT odate, snum, COUNT(*) FROM orders GROUP BY odate, snum;
 
-CREATE VIEW min_order_amt AS
-SELECT customers.cname, MIN(orders.amt) AS min_order_amt FROM customers
-JOIN orders ON customers.cnum = orders.cnum GROUP BY customers.cnum;
-
-CREATE VIEW min_order_amt_by_seller_and_date AS
-SELECT orders.snum, orders.odate, MIN(orders.amt) AS min_order_amt FROM orders GROUP BY orders.snum, orders.odate;
-
-CREATE VIEW min_order_amt_for_customers AS
-SELECT customers.cname, MIN(orders.amt) AS min_order_amt FROM customers
-JOIN orders ON customers.cnum = orders.cnum
-WHERE customers.cname IN ('Cisneros', 'Grass', 'Clemens') GROUP BY customers.cnum;
-
-CREATE VIEW customers_starting_with_G AS
-SELECT cname FROM customers WHERE cname LIKE 'G%' ORDER BY cname ASC;
-
-CREATE VIEW max_rating_per_city AS
-SELECT city, MAX(rating) AS max_rating FROM customers GROUP BY city;
-
-CREATE VIEW num_sellers_registering_orders_per_day AS
-SELECT orders.odate, COUNT(DISTINCT orders.snum) AS num_salespeople FROM orders GROUP BY orders.odate;
-
-CREATE VIEW num_orders_per_seller_and_day AS
-SELECT orders.odate, orders.snum, COUNT(*) AS num_orders FROM orders GROUP BY orders.odate, orders.snum;
-
-
-CREATE VIEW customer_ratings AS
-SELECT cname, rating FROM customers
-ORDER BY rating;
-
-CREATE VIEW salespeople_customers AS
-SELECT salespeople.sname, customers.cname FROM salespeople
-JOIN orders ON salespeople.snum = orders.snum
-JOIN customers c ON orders.cnum = customers.cnum
-ORDER BY salespeople.sname;
-
-CREATE VIEW salespeople_desc AS
-SELECT snum, sname, city FROM salespeople
-ORDER BY sname DESC;
-
-CREATE VIEW customers_asc AS
-SELECT cname, city, rating FROM customers
-ORDER BY rating, cname;
-
-CREATE VIEW salespeople_by_city AS
-SELECT sname, city FROM salespeople
-GROUP BY city
-ORDER BY sname;
-
-CREATE VIEW customers_grouped AS
-SELECT cname, city, rating FROM customers
-GROUP BY city
-ORDER BY city;
-
-CREATE VIEW city_ratings_count AS
-SELECT city, COUNT(rating) AS rating_count FROM customers
-GROUP BY city
-ORDER BY rating_count ASC;
+CREATE VIEW 9_9 AS SELECT rating, GROUP_CONCAT(cname) FROM customers GROUP BY rating;
+CREATE VIEW 9_10 AS SELECT sname, GROUP_CONCAT(cname) FROM salespeople JOIN orders USING (snum) JOIN customers USING (cnum) GROUP BY sname;
+CREATE VIEW 9_11 AS SELECT sname, snum, city FROM salespeople ORDER BY sname DESC;
+CREATE VIEW 9_12 AS SELECT cname, city, rating FROM customers ORDER BY rating, cname;
+CREATE VIEW 9_13 AS SELECT sname, city FROM salespeople GROUP BY city ORDER BY sname;
+CREATE VIEW 9_14 AS SELECT cname, city, rating FROM customers ORDER BY 2;
+CREATE VIEW 9_15 AS SELECT city, COUNT(rating) as rating_count FROM customers GROUP BY city ORDER BY rating_count;
 
 
 10.

@@ -131,3 +131,37 @@ CREATE VIEW 10_7 AS SELECT cname, odate FROM orders, customers WHERE orders.cnum
 CREATE VIEW 10_8 AS SELECT cname, amt, comm, odate FROM salespeople, orders, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND odate = '2021-04-10';
 CREATE VIEW 10_9 AS SELECT cname, rating, amt, odate FROM orders, customers where orders.cnum = customers.cnum AND amt > 3000 AND odate = '2021-03-10';
 CREATE VIEW 10_10 AS SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND salespeople.snum = orders.snum AND customers.city = 'San Jose' AND salespeople.city = 'San Jose' AND salespeople.city = customers.city;
+
+
+11.
+CREATE VIEW '11_1' AS SELECT * FROM orders WHERE cnum = (SELECT DISTINCT cnum FROM customers WHERE cname = 'Hoffman');
+
+CREATE VIEW '11_2' AS SELECT * FROM orders WHERE snum = (SELECT snum FROM salespeople WHERE city = 'New York');
+
+CREATE VIEW '11_3' AS SELECT * FROM customers WHERE snum = (SELECT snum FROM salespeople WHERE sname = 'Motika');
+
+CREATE VIEW '11_4' AS SELECT * FROM salespeople WHERE snum = (SELECT snum FROM orders WHERE cnum = (SELECT cnum FROM customers WHERE cname = 'Liu'));
+
+CREATE VIEW '11_5' AS SELECT * FROM orders WHERE cnum = (SELECT cnum FROM customers WHERE rating = 100 AND city = 'Rome');
+
+
+12.
+CREATE VIEW '12_1' AS SELECT customers.cname, customers.rating, AVG(amt) FROM customers, orders WHERE customers.cnum = orders.cnum GROUP BY orders.cnum;
+
+CREATE VIEW '12_2' AS SELECT customers.cname, customers.rating FROM customers WHERE rating < (SELECT AVG(rating) from customers) AND city = 'Rome';
+
+CREATE VIEW '12_3' AS SELECT salespeople.sname, salespeople.comm FROM salespeople WHERE salespeople.snum = (SELECT DISTINCT(snum) FROM customers WHERE customers.city = 'Paris');
+
+CREATE VIEW '12_4' AS SELECT COUNT(orders.onum) FROM orders WHERE amt < (SELECT AVG(amt) FROM orders) AND orders.odate = '2021-03-10';
+
+CREATE VIEW '12_5' AS SELECT salespeople.sname, salespeople.snum FROM salespeople WHERE (salespeople.snum + 1000) = (SELECT cnum FROM customers WHERE customers.city = 'Berlin');
+
+CREATE VIEW '12_6' AS SELECT snum, sum(amt) FROM orders GROUP BY snum HAVING sum(amt) > (SELECT max(amt) FROM orders);
+
+
+13.
+CREATE VIEW '13_1' AS SELECT cname, city, 'Высокий рейтинг' AS 'Рейтинг', rating FROM customers WHERE rating >= 200 UNION SELECT cname, city, 'Низкий рейтинг', rating FROM customers WHERE rating < 200;
+
+CREATE VIEW '13_2' AS SELECT orders.snum AS 'id', sname AS 'name', COUNT(onum) FROM salespeople, orders WHERE salespeople.snum = orders.snum GROUP BY orders.snum HAVING COUNT(onum) > 1 UNION SELECT orders.cnum, cname, COUNT(onum) FROM customers, orders WHERE customers.cnum = orders.cnum GROUP BY orders.cnum HAVING COUNT(onum) > 1 ORDER BY 2;
+
+CREATE VIEW '13_3' AS SELECT snum AS 'id', city FROM salespeople WHERE city = 'San Jose' GROUP BY snum UNION SELECT cnum, city FROM customers WHERE city = 'San Jose' GROUP BY cnum UNION SELECT onum, odate FROM orders WHERE odate = '2021-03-10' GROUP BY onum;

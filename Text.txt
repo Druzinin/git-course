@@ -166,3 +166,16 @@ CREATE VIEW 14_6 AS SELECT orders.snum, sname, AVG(amt), SUM(amt) FROM salespeop
 CREATE VIEW 14_7 AS SELECT onum, amt, odate, cnum, orders.snum FROM orders, salespeople WHERE orders.snum = salespeople.snum AND city = 'London';
 CREATE VIEW 14_8 AS SELECT sname, COUNT(customers.snum) FROM salespeople, customers WHERE customers.snum = salespeople.snum GROUP BY salespeople.snum HAVING COUNT(customers.snum) > 1;
 CREATE VIEW 14_9 AS SELECT salespeople.snum, sname FROM salespeople, orders WHERE salespeople.snum = orders.snum AND odate BETWEEN '2021-03-31' AND '2021-05-01';
+
+
+15.
+CREATE VIEW 15_1 AS SELECT sname, cname, amt FROM orders INNER JOIN salespeople USING (snum) INNER JOIN customers USING (cnum) WHERE amt > 700 and amt < 2000;
+CREATE VIEW 15_2 AS SELECT sname, amt - (amt * comm) FROM orders INNER JOIN salespeople USING (snum);
+CREATE VIEW 15_3 AS SELECT sname, cname FROM customers INNER JOIN salespeople USING (snum);
+CREATE VIEW 15_4 AS SELECT sname, cname, city FROM customers INNER JOIN salespeople USING (snum, city);
+CREATE VIEW 15_5 AS SELECT odate, comm FROM orders INNER JOIN salespeople USING (snum) WHERE comm < 0.12;
+CREATE VIEW 15_6 AS SELECT amt, rating FROM orders INNER JOIN customers USING (cnum) WHERE rating > 100;
+CREATE VIEW 15_7 AS SELECT cname, odate FROM orders INNER JOIN customers USING (cnum) WHERE odate = '2021-03-10';
+CREATE VIEW 15_8 AS SELECT cname, amt, comm, odate FROM orders INNER JOIN salespeople USING (snum) INNER JOIN customers USING (cnum) WHERE odate = '2021-04-10';
+CREATE VIEW 15_9 AS SELECT cname, rating, amt, odate FROM orders INNER JOIN customers USING (cnum) WHERE amt > 3000 and odate = '2021-03-10';
+CREATE VIEW 15_10 AS SELECT onum, sname, cname, city FROM customers INNER JOIN salespeople USING (snum, city) INNER JOIN orders USING (cnum, snum) WHERE city = 'San Jose';

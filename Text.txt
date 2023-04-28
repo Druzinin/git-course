@@ -187,3 +187,15 @@ CREATE VIEW 16_2 AS SELECT sname, comm FROM salespeople WHERE comm > ALL(SELECT 
 CREATE VIEW 16_3 AS SELECT * FROM orders WHERE amt < ALL(SELECT amt FROM orders WHERE odate = '2021-04-10');
 CREATE VIEW 16_4 AS SELECT snum, sum(amt) FROM orders GROUP BY snum HAVING sum(amt) >= ALL(SELECT sum(amt) FROM orders GROUP BY snum);
 CREATE VIEW 16_5 AS SELECT sname, orders.snum, sum(amt) FROM orders, salespeople WHERE salespeople.snum = orders.snum GROUP BY orders.snum HAVING sum(amt) >= ALL(SELECT sum(amt) FROM orders GROUP BY snum);
+
+
+17.
+CREATE USER 'gruber_user'@'localhost' IDENTIFIED BY '12345';
+GRANT SELECT ON salespeople, orders TO 'gruber_user'@'localhost';
+SELECT * FROM salespeople;
+GRANT INSERT ON orders TO 'gruber_user'@'localhost';
+INSERT INTO orders (onum, amt, odate, cnum, snum) VALUES (3012, 2500.00, '2023-04-28', 2001, 1001);
+REVOKE SELECT ON orders FROM gruber_user;
+GRANT UPDATE ON customers TO gruber_user;
+REVOKE UPDATE ON customers FROM gruber_user;
+DROP USER gruber_user;

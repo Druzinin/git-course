@@ -177,5 +177,13 @@ CREATE VIEW 15_5 AS SELECT odate, comm FROM orders INNER JOIN salespeople USING 
 CREATE VIEW 15_6 AS SELECT amt, rating FROM orders INNER JOIN customers USING (cnum) WHERE rating > 100;
 CREATE VIEW 15_7 AS SELECT cname, odate FROM orders INNER JOIN customers USING (cnum) WHERE odate = '2021-03-10';
 CREATE VIEW 15_8 AS SELECT cname, amt, comm, odate FROM orders INNER JOIN salespeople USING (snum) INNER JOIN customers USING (cnum) WHERE odate = '2021-04-10';
-CREATE VIEW 15_9 AS SELECT cname, rating, amt, odate FROM orders INNER JOIN customers USING (cnum) WHERE amt > 3000 and odate = '2021-03-10';
+CREATE VIEW 15_9 AS SELECT cname, rating, amt, odate FROM orders INNER JOIN customers USING (cnum) WHERE amt > 3000 AND odate = '2021-03-10';
 CREATE VIEW 15_10 AS SELECT onum, sname, cname, city FROM customers INNER JOIN salespeople USING (snum, city) INNER JOIN orders USING (cnum, snum) WHERE city = 'San Jose';
+
+
+16.
+CREATE VIEW 16_1 AS SELECT sname, cname, salespeople.city FROM salespeople, customers WHERE salespeople.city = customers.city AND customers.snum = salespeople.snum;
+CREATE VIEW 16_2 AS SELECT sname, comm FROM salespeople WHERE comm > ALL(SELECT comm FROM salespeople WHERE city = 'London');
+CREATE VIEW 16_3 AS SELECT * FROM orders WHERE amt < ALL(SELECT amt FROM orders WHERE odate = '2021-04-10');
+CREATE VIEW 16_4 AS SELECT snum, sum(amt) FROM orders GROUP BY snum HAVING sum(amt) >= ALL(SELECT sum(amt) FROM orders GROUP BY snum);
+CREATE VIEW 16_5 AS SELECT sname, orders.snum, sum(amt) FROM orders, salespeople WHERE salespeople.snum = orders.snum GROUP BY orders.snum HAVING sum(amt) >= ALL(SELECT sum(amt) FROM orders GROUP BY snum);

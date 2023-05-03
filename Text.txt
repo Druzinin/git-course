@@ -122,15 +122,15 @@ CREATE VIEW 9_15 AS SELECT city, COUNT(rating) as rating_count FROM customers GR
 
 10.
 CREATE VIEW 10_1 AS SELECT sname, cname, amt FROM salespeople, customers, orders WHERE amt BETWEEN 700 AND 2000 AND orders.cnum = customers.cnum AND orders.snum = salespeople.snum;
-CREATE VIEW 10_2 AS SELECT sname, (amt - (amt * comm)) FROM salespeople, orders WHERE salespeople.snum = orders.snum;
-CREATE VIEW 10_3 AS SELECT sname, cname FROM salespeople, customers WHERE customers.snum = salespeople.snum ORDER BY sname;
+CREATE VIEW 10_2 AS SELECT sname, amt - amt * comm FROM salespeople, orders WHERE salespeople.snum = orders.snum;
+CREATE VIEW 10_3 AS SELECT sname, cname FROM salespeople, customers WHERE customers.snum = salespeople.snum;
 CREATE VIEW 10_4 AS SELECT sname, cname, customers.city FROM salespeople, customers WHERE customers.snum = salespeople.snum AND customers.city = salespeople.city;
 CREATE VIEW 10_5 AS SELECT odate, comm FROM orders, salespeople WHERE orders.snum = salespeople.snum AND comm < 0.12;
 CREATE VIEW 10_6 AS SELECT amt, rating FROM orders, customers WHERE orders.cnum = customers.cnum AND rating > 100;
 CREATE VIEW 10_7 AS SELECT cname, odate FROM orders, customers WHERE orders.cnum = customers.cnum AND odate = '2021-03-10';
 CREATE VIEW 10_8 AS SELECT cname, amt, comm, odate FROM salespeople, orders, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND odate = '2021-04-10';
 CREATE VIEW 10_9 AS SELECT cname, rating, amt, odate FROM orders, customers where orders.cnum = customers.cnum AND amt > 3000 AND odate = '2021-03-10';
-CREATE VIEW 10_10 AS SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND salespeople.snum = orders.snum AND customers.city = 'San Jose' AND salespeople.city = 'San Jose' AND salespeople.city = customers.city;
+CREATE VIEW 10_10 AS SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND salespeople.snum = orders.snum AND customers.city = 'San Jose' AND salespeople.city = 'San Jose';
 
 
 11.

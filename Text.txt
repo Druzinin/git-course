@@ -37,11 +37,11 @@ VALUES
 
 INSERT INTO customers (cnum, cname, pol, city, rating, snum)
 VALUES
-    (2001, 'Hoffman', 'ж', 'London', 100, 1001),
+    (2001, 'Hoffman', 'ж', 'Paris', 100, 1001),
     (2002, 'Giovanni', 'ж', 'Rome', 200, 1003),
     (2003, 'Liu', 'м', 'San Jose', 200, 1002),
     (2004, 'Grass', 'м', 'Berlin', 300, 1002),
-    (2006, 'Clemens', 'ж', 'London', 100, 1001),
+    (2006, 'Clemens', 'ж', 'Paris', 100, 1001),
     (2008, 'Cisneros', 'ж', 'San Jose', 300, 1007),
     (2007, 'Pereira', 'м', 'Rome', 100, 1004);
 

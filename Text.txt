@@ -129,7 +129,7 @@ CREATE VIEW 10_5 AS SELECT odate, comm FROM orders, salespeople WHERE orders.snu
 CREATE VIEW 10_6 AS SELECT amt, rating FROM orders, customers WHERE orders.cnum = customers.cnum AND rating > 100;
 CREATE VIEW 10_7 AS SELECT cname, odate FROM orders, customers WHERE orders.cnum = customers.cnum AND odate = '2021-03-10';
 CREATE VIEW 10_8 AS SELECT cname, amt, comm, odate FROM salespeople, orders, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND odate = '2021-04-10';
-CREATE VIEW 10_9 AS SELECT cname, rating, amt, odate FROM orders, customers where orders.cnum = customers.cnum AND amt > 3000 AND odate = '2021-03-10';
+CREATE VIEW 10_9 AS SELECT cname, rating, amt, odate FROM orders, customers WHERE orders.cnum = customers.cnum AND amt > 3000 AND odate = '2021-03-10';
 CREATE VIEW 10_10 AS SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND salespeople.snum = orders.snum AND customers.city = 'San Jose' AND salespeople.city = 'San Jose';
 
 

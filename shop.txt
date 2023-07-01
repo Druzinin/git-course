@@ -1,0 +1,83 @@
+CREATE DATABASE shop;
+USE shop;
+
+DROP TABLE IF EXISTS Товар;
+DROP TABLE IF EXISTS Категория;
+DROP TABLE IF EXISTS Производитель;
+
+CREATE TABLE IF NOT EXISTS Товар (
+    id_tovar INTEGER PRIMARY KEY AUTOINCREMENT,
+    наименование TEXT,
+    единица_измерения TEXT,
+    кол_во_в_магазине INTEGER,
+    закупочная_цена REAL,
+    срок_годности DATE,
+    дата_изготовления DATE,
+    id_category INTEGER,
+    id_producer INTEGER,
+    FOREIGN KEY (id_category) REFERENCES Категория,
+    FOREIGN KEY (id_producer) REFERENCES Производитель
+);
+
+CREATE TABLE IF NOT EXISTS Категория (
+    id_category INTEGER PRIMARY KEY AUTOINCREMENT,
+    название TEXT,
+    процент_надбавки REAL
+);
+
+CREATE TABLE IF NOT EXISTS Производитель (
+    id_producer INTEGER PRIMARY KEY AUTOINCREMENT,
+    название TEXT,
+    адрес TEXT,
+    страна TEXT,
+    телефон TEXT
+);
+
+ALTER TABLE Товар ADD FOREIGN KEY (id_category) REFERENCES Категория(id_category);
+ALTER TABLE Товар ADD FOREIGN KEY (id_producer) REFERENCES Производитель(id_producer);
+
+
+INSERT INTO Категория (название, процент_надбавки) VALUES
+    ('молочная продукция', 10),
+    ('хлебобулочная продукция', 20),
+    ('косметика', 30);
+
+INSERT INTO Производитель (название, адрес, страна, телефон) VALUES
+    ('ООО "Рога и копыта"', 'г. Москва, ул. Ленина 10', 'Россия', '+7 (495) 123-45-67'),
+    ('ИП Иванов И.И.', 'г. Санкт-Петербург, ул. Пушкина 25', 'Россия', '+7 (812) 765-43-21'),
+    ('ОАО "Газпром нефть"', 'г. Москва, пр-т. Ленинградский 10', 'Россия', '+7 (495) 987-65-43'),
+    ('Samsung Electronics Co., Ltd.', 'Seocho Samsung Building, 1320-10 Seocho-dong, Seocho-gu, Seoul, South Korea', 'Корея', '+82-2-2255-0114'),
+    ('Nike, Inc.', 'Beaverton, Oregon, United States', 'США', '+1-800-344-6453'),
+    ('The Procter & Gamble Company', 'Cincinnati, Ohio, United States', 'США', '+1-800-331-3774'),
+    ('Nestlé S.A.', 'Vevey, Switzerland', 'Швейцария', '+41 21 924 1111'),
+    ('Unilever N.V.', 'Rotterdam, Netherlands', 'Нидерланды', '+31 10 217 4000');
+
+INSERT INTO Товар (наименование, id_category, единица_измерения, кол_во_в_магазине, закупочная_цена, срок_годности, дата_изготовления, id_producer) VALUES
+    ('Молоко пастеризованное 2.5%', 1, 'литр', 50, 40.0, '2023-06-30', '2023-05-20', 1),
+    ('Шампунь Head&Shoulders', 3, 'штука', 100, 150.0, '2024-12-31', '2023-04-15', 2),
+    ('Мыло Dove', 3, 'штука', 200, 50.0, '2024-06-30', '2023-03-15', 7),
+    ('Печенье Oreo', 2, 'упаковка', 120, 100.0, '2023-12-31', '2023-05-01', 8),
+    ('Молотый кофе Lavazza Qualita Oro', 1, 'килограмм', 15, 1000.0, '2024-06-30', '2023-04-01', 1);
+
+
+DROP VIEW IF EXISTS '1';
+DROP VIEW IF EXISTS '2';
+DROP VIEW IF EXISTS '3';
+DROP VIEW IF EXISTS '4';
+DROP VIEW IF EXISTS '5';
+
+
+CREATE VIEW 1 AS SELECT наименование, закупочная_цена, процент_надбавки,
+закупочная_цена + закупочная_цена * (процент_надбавки / 100) FROM Товар JOIN Категория USING (id_category);
+
+CREATE VIEW 2 AS SELECT наименование, страна FROM Товар JOIN Производитель USING (id_producer)
+WHERE страна = 'Нидерланды';
+
+CREATE VIEW 3 AS SELECT Категория.название FROM Товар JOIN Категория USING (id_category)
+JOIN Производитель USING (id_producer) WHERE наименование = 'Мыло Dove';
+
+CREATE VIEW 4 AS SELECT название, кол_во_в_магазине FROM Товар JOIN Категория USING (id_category)
+WHERE кол_во_в_магазине = (SELECT MIN(кол_во_в_магазине) FROM Товар);
+
+CREATE VIEW 5 AS SELECT Производитель.название, процент_надбавки FROM Товар JOIN Производитель USING (id_producer)
+JOIN Категория USING (id_category) WHERE процент_надбавки = (SELECT MAX(процент_надбавки) FROM Категория);
